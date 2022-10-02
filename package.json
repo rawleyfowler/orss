@@ -1,0 +1,34 @@
+{
+  "name": "orss",
+  "version": "0.0.1",
+  "description": "Web Crawler and RSS aggregator for data hoarders",
+  "main": "index.js",
+  "scripts": {
+    "start": "ORSS_PORT=3000 node ./index.js",
+    "dev": "ORSS_PORT=3000 nodemon ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rawleyfowler/orss.git"
+  },
+  "keywords": [
+    "crawler",
+    "rss"
+  ],
+  "author": "Rawley Fowler <rawleyfowler@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rawleyfowler/orss/issues"
+  },
+  "homepage": "https://github.com/rawleyfowler/orss#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "hbs": "^4.2.0",
+    "sqlite3": "^5.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20",
+    "prettier": "2.7.1"
+  }
+}
