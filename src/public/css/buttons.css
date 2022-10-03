@@ -1,0 +1,107 @@
+/*
+  https://github.com/loup-brun/buttons/
+  MIT License
+
+  Copyright (c) 2019 Louis-Olivier Brassard
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+*/
+button, a {
+  outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+a {
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #52C11F;
+  color: #52C11F;
+  transition: border-color 0.2s;
+}
+a:hover {
+  border-color: transparent;
+}
+.pi .btn {
+  display: inline-block;
+  margin: 6px;
+  font-size: inherit;
+  line-height: 1.42;
+  padding: 0.6em 1.6em;
+  font-weight: normal;
+  border-width: 0;
+  border-style: solid;
+  background: transparent;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-family: "Booster Next FY", "Avenir Next", Avenir, sans-serif;
+  user-select: none;
+  vertical-align: bottom;
+  transition: box-shadow 0.2s, transform 0.2s;
+  border-radius: 12%/50%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+.pi .btn.btn-disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+.pi .btn.btn-disabled:active {
+  opacity: 0.6;
+}
+.pi .btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 1px 10px 1px rgba(0, 0, 0, 0.2);
+}
+.pi .btn:active {
+  transform: scale(0.99);
+  box-shadow: 0 2px 6px 1px rgba(0, 0, 0, 0.15) inset;
+  transition-duration: 0.05s;
+}
+.pi .btn-primary {
+  color: #52C11F;
+}
+.pi .btn-secondary {
+  color: #0B44EF;
+}
+.pi .btn-tertiary {
+  color: #FF006A;
+}
+.pi .btn-tetrary {
+  color: #991BE2;
+}
+.pi .btn-black {
+  color: #252730;
+}
+.pi .btn-dark {
+  color: #3F4351;
+}
+.pi .btn-gray {
+  color: #6D6F7F;
+}
+.pi .btn-light {
+  color: #5d7592;
+}
+.btn-sm {
+  font-size: 0.85em !important;
+}
+.btn-md {
+  font-size: 1.2em !important;
+}
+.btn-lg {
+  font-size: 1.6em !important;
+}

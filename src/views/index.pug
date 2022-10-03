@@ -1,0 +1,22 @@
+extends ./templates/default.pug
+
+block styles
+  link(href='/public/css/buttons.css', rel='stylesheet')
+
+block content 
+  h2 INDEX
+  div(v-scope='{ uri: "" }')
+    form(action='/', method='POST')
+      div
+        | rss feed url:
+        input(type='text', name='rss', v-model:value="uri" required)
+      button(type='submit', class='btn pi', :disabled='uri.length ? false : true') Submit
+    if errors
+      each error in errors
+        include ./partials/error.pug
+  div
+    if posts && posts.length
+      each post in posts
+        include ./partials/post.pug
+    else 
+      li No posts available.
