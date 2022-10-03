@@ -55,7 +55,7 @@ app.post('/',
     return res.render('index', { errors: ['Something went wrong saving that URI!'] })
   }
 
-  return res.render('index')
+  return res.render('index', { posts: postRepository.findAll(), sites: siteRepository.findAll() })
 })
 
 module.exports = () =>

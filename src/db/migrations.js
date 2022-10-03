@@ -1,5 +1,6 @@
 const migrations = [
   {
+    id: 1,
     up:
       'CREATE TABLE IF NOT EXISTS site (' +
       'uri TEXT PRIMARY KEY,' +
@@ -9,6 +10,7 @@ const migrations = [
     down: 'DROP TABLE site',
   },
   {
+    id: 2,
     up:
       'CREATE TABLE IF NOT EXISTS post (' +
       'uri TEXT PRIMARY KEY,' +
@@ -21,12 +23,14 @@ const migrations = [
     down: 'DROP TABLE post',
   },
   {
-    up: 'ALTER TABLE site ADD title TEXT',
-    down: 'ALTER TABLE site REMOVE title'
+    id: 3,
+    up: 'ALTER TABLE site ADD COLUMN title TEXT NULL',
+    down: 'ALTER TABLE site DROP COLUMN title'
   },
   {
-    up: 'ALTER TABLE site ADD description TEXT',
-    down: 'ALTER TABLE site REMOVE description'
+    id: 4,
+    up: 'ALTER TABLE site ADD COLUMN description TEXT NULL',
+    down: 'ALTER TABLE site DROP COLUMN description'
   }
 ]
 
