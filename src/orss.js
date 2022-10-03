@@ -8,6 +8,8 @@ const express = require('express')
 const app = express()
 
 const postRepository = require('./db/repos/post')
+const siteRepository = require('./db/repos/site')
+const crawler = require('./services/crawler')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/public', express.static(path.join(__dirname, 'public')))
@@ -36,7 +38,8 @@ app.use(cookieSession({
 }))
 
 app.get('/', (req, res) => {
-  res.render('index', { posts: postRepository.findAll() })
+  crawler.crawl()
+  return res.render('index', { posts: postRepository.findAll(), sites: siteRepository.findAll() })
 })
 
 app.post('/', 
@@ -45,10 +48,14 @@ app.post('/',
   const errors = validationResult(req).errors.map(prettyPrintError)
 
   if (errors.length) {
-    return res.render('index', { content: '', errors })
+    return res.render('index', { errors })
   }
 
-  res.render('index')
+  if(!siteRepository.insert(req.body.rss)) {
+    return res.render('index', { errors: ['Something went wrong saving that URI!'] })
+  }
+
+  return res.render('index')
 })
 
 module.exports = () =>

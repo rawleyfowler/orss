@@ -20,6 +20,14 @@ const migrations = [
       'FOREIGN KEY (site_uri) REFERENCES site (uri))',
     down: 'DROP TABLE post',
   },
+  {
+    up: 'ALTER TABLE site ADD title TEXT',
+    down: 'ALTER TABLE site REMOVE title'
+  },
+  {
+    up: 'ALTER TABLE site ADD description TEXT',
+    down: 'ALTER TABLE site REMOVE description'
+  }
 ]
 
 module.exports = migrations

@@ -20,3 +20,9 @@ block content
         include ./partials/post.pug
     else 
       li No posts available.
+  div
+    if sites && sites.length 
+      each site in sites
+        include ./partials/site.pug 
+    else
+      p You're not subscribed to any sites.
