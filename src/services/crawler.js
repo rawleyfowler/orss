@@ -2,15 +2,25 @@ const axios = require('axios')
 const { XMLParser } = require('fast-xml-parser')
 
 const postRepository = require('../db/repos/post')
-const site = require('../db/repos/site')
 const siteRepository = require('../db/repos/site')
 const groupBy = require('../utils/groupBy')
 
 const get = async (page) => {
-  return axios.get(page).then(t => t.data)
+  return axios.get(page)
+    .then(t => t.data)
+    .catch(siteRepository.deactivate)
 }
 
 const parseXml = (xml) => new XMLParser().parse(xml)
+
+const crawlPosts = async (posts, siteUri) => {
+  posts
+    .map(async ({description, title, link}) => ({uri: link, title, description, content: await get(link)}))
+    .forEach(async t => {
+      const post = await t
+      postRepository.insert({...post, siteUri})
+    })
+}
 
 const crawl = async () => {
   console.log(siteRepository.findAll())
@@ -22,10 +32,27 @@ const crawl = async () => {
     .findAll()
     .reduce(groupBy('uri'), {})
 
-  console.log("POSTS", posts)
+  Object.keys(sites)
+    .forEach(async t => {
+      const channel = parseXml(await get(t)).rss.channel
 
-  Object.keys(sites).forEach(async uri => {
-  })
+      if (!channel) {
+        siteRepository.deactivate(t.uri)
+        return
+      }
+
+      if (channel.title && 
+          channel.title.length && 
+          channel.description &&
+          channel.description.length &&
+          !siteRepository.update(t, channel.title, channel.description)) {
+        console.error('Failed to update sites description and title')
+      }
+
+      if (channel.item && channel.item.length) {
+        crawlPosts(channel.item, t)
+      }
+    })
 }
 
 module.exports = {

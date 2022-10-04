@@ -31,6 +31,11 @@ const migrations = [
     id: 4,
     up: 'ALTER TABLE site ADD COLUMN description TEXT NULL',
     down: 'ALTER TABLE site DROP COLUMN description'
+  },
+  {
+    id: 5,
+    up: 'ALTER TABLE post ADD COLUMN content TEXT NULL',
+    down: 'ALTER TABLE post DROP COLUMN content'
   }
 ]
 
