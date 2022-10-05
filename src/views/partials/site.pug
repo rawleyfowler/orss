@@ -1,5 +1,5 @@
 div(class='site')
-  h4= site.title || site.uri
+  h3= site.title || site.uri
   p= site.description || 'No description...'
   if site.posts && site.posts.length
     each post in site.posts
