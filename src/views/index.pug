@@ -15,14 +15,8 @@ block content
       each error in errors
         include ./partials/error.pug
   div
-    if posts && posts.length
-      each post in posts
-        include ./partials/post.pug
-    else 
-      li No posts available.
-  div
     if sites && sites.length 
       each site in sites
         include ./partials/site.pug 
-    else
+    else 
       p You're not subscribed to any sites.

@@ -13,8 +13,13 @@ const get = async (page) => {
 
 const parseXml = (xml) => new XMLParser().parse(xml)
 
-const crawlPosts = async (posts, siteUri) => {
-  posts
+const crawlPosts = (posts) => {
+  const existingPosts = posts
+    .map(t => postRepository.findByUri(t.link))
+    .map(({uri}) => uri)
+  return async (siteUri) => 
+    posts
+    .filter(({link}) => !existingPosts.includes(link))
     .map(async ({description, title, link}) => ({uri: link, title, description, content: await get(link)}))
     .forEach(async t => {
       const post = await t
@@ -23,7 +28,6 @@ const crawlPosts = async (posts, siteUri) => {
 }
 
 const crawl = async () => {
-  console.log(siteRepository.findAll())
   const sites = siteRepository
     .findAll()
     .filter(t => t.active === 1)
@@ -50,7 +54,7 @@ const crawl = async () => {
       }
 
       if (channel.item && channel.item.length) {
-        crawlPosts(channel.item, t)
+        crawlPosts(channel.item)(t)
       }
     })
 }

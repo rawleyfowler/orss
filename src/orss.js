@@ -37,9 +37,16 @@ app.use(cookieSession({
   httpOnly: true
 }))
 
+const getSitesWithPosts = () =>
+  siteRepository
+    .findAll()
+    .map(site => ({...site, posts: postRepository.findAllBySiteUri(site.uri)}))
+
+
 app.get('/', (req, res) => {
   crawler.crawl()
-  return res.render('index', { posts: postRepository.findAll(), sites: siteRepository.findAll() })
+
+  return res.render('index', { sites: getSitesWithPosts() })
 })
 
 app.post('/', 
@@ -55,7 +62,7 @@ app.post('/',
     return res.render('index', { errors: ['Something went wrong saving that URI!'] })
   }
 
-  return res.render('index', { posts: postRepository.findAll(), sites: siteRepository.findAll() })
+  return res.render('index', { sites: getSitesWithPosts })
 })
 
 module.exports = () =>
