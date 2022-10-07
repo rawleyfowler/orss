@@ -1,0 +1,12 @@
+extends ./templates/default.pug
+
+block content
+  if (post)
+    a(href='/', class='mb-3 mt-3') Go Back
+    div(class='card')
+      div(class='card-body')
+        h2(class='card-title')= post.title
+        div= post.content
+
+  else 
+    h3 404 Post Not Found

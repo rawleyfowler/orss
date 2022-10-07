@@ -1,6 +1,7 @@
 div(class='site')
-  h3= site.title || site.uri
+  h3(class='display')= site.title || site.uri
   p= site.description || 'No description...'
+  button(class="btn btn-success", onclick=`fetch("/site/${site.id}").then(() => location.reload())`) Refresh
   if site.posts && site.posts.length
     each post in site.posts
       include ./post.pug

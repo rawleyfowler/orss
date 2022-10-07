@@ -12,7 +12,6 @@ const getSitesWithPosts = () =>
     .map(site => ({...site, posts: postRepository.findAllBySiteUri(site.uri)}))
 
 router.get('/', (req, res) => {
-  crawler.crawl()
   return res.render('index', { sites: getSitesWithPosts() })
 })
 
@@ -29,8 +28,7 @@ router.post('/',
     return res.render('index', { errors: ['Something went wrong saving that URI!'] })
   }
 
-  return res.render('index', { sites: getSitesWithPosts })
+  return res.render('index', { sites: getSitesWithPosts() })
 })
-
 
 module.exports = router

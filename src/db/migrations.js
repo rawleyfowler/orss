@@ -3,7 +3,8 @@ const migrations = [
     id: 1,
     up:
       'CREATE TABLE IF NOT EXISTS site (' +
-      'uri TEXT PRIMARY KEY,' +
+      'id TEXT PRIMARY KEY,' +
+      'uri TEXT NOT NULL,' +
       'active TINYINT DEFAULT 1,' +
       "created_at timestamp DEFAULT (strftime('%s', 'now'))," +
       'updated_at timestamp NULL)',
@@ -13,7 +14,8 @@ const migrations = [
     id: 2,
     up:
       'CREATE TABLE IF NOT EXISTS post (' +
-      'uri TEXT PRIMARY KEY,' +
+      'id TEXT PRIMARY KEY,' +
+      'uri TEXT NOT NULL,' +
       'title TEXT NOT NULL,' +
       'description TEXT NOT NULL,' +
       "created_at timestamp DEFAULT (strftime('%s', 'now'))," +

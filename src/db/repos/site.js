@@ -2,11 +2,12 @@ const db = require('../db')
 
 module.exports = {
   findAll: () => {
-    return db.findAllOfTable('site')
+    return db.findAllOfTable('site').filter(t => t.active === 1)
   },
 
   insert: (uri) => {
-    return db.prepare('INSERT INTO site (uri) VALUES ( ? )').run(uri).changes === 1
+    const id = require('uuid').v4()
+    return db.prepare('INSERT INTO site (id, uri) VALUES ( ?, ? )').run(id, uri).changes === 1
   },
 
   update: (uri, title, description) => {
@@ -15,5 +16,9 @@ module.exports = {
 
   deactivate: (uri) => {
     return db.prepare('UPDATE site SET active = 0 WHERE uri = ?').run(uri).changes === 1
+  },
+
+  findById: (id) => {
+    return db.prepare('SELECT * FROM site WHERE id = ?').get(id)
   }
 }

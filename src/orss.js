@@ -6,6 +6,8 @@ const express = require('express')
 const app = express()
 
 const indexRouter = require('./routes/index')
+const postRouter = require('./routes/post')
+const siteRouter = require('./routes/site')
 const crawler = require('./services/crawler')
 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -26,6 +28,8 @@ if (process.env.NODE_ENV === 'dev') {
 }
 
 app.use('/', indexRouter)
+app.use('/post', postRouter)
+app.use('/site', siteRouter)
 
 app.use(cookieSession({
   name: 'orss_session',
@@ -37,10 +41,10 @@ app.use(cookieSession({
 }))
 
 // Start the crawler
-setTimeout(() => {
+setInterval(async () => {
   console.log('Crawler started')
-  crawler.crawl()
-}, 500000)
+  await crawler.crawl()
+}, 1000 * 1000 * 60 * 5)
 
-module.exports = () =>
+module.exports = () => 
   app.listen(ORSS_PORT, () => console.log(`Listening on port ${ORSS_PORT}, http://localhost:${ORSS_PORT}`))

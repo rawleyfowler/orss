@@ -1,22 +1,23 @@
-extends ./templates/default.pug
+extends ./templates/default-vue.pug
 
 block styles
-  link(href='/public/css/buttons.css', rel='stylesheet')
+  link(href='/public/css/utils.css', rel='stylesheet')
 
 block content 
-  h2 INDEX
   div(v-scope='{ uri: "" }')
     form(action='/', method='POST')
-      div
-        | rss feed url:
-        input(type='text', name='rss', v-model:value="uri" required)
-      button(type='submit', class='btn pi', :disabled='uri.length ? false : true') Submit
+      div(class='d-flex align-items-baseline')
+        label RSS Feed URI
+        input(type='text', class='mx-3', name='rss', v-model:value='uri' required)
+        button(type='submit', class='btn btn-primary', :disabled='uri.length ? false : true') Submit
     if errors
       each error in errors
         include ./partials/error.pug
-  div
-    if sites && sites.length 
-      each site in sites
-        include ./partials/site.pug 
+    if sites && sites.length
+      div(class='d-flex')
+        each site in sites
+          div(class='card scroll', style='width: 23rem; height: 33rem; margin-right: 1rem;')
+            div(class='card-body')
+              include ./partials/site.pug
     else 
       p You're not subscribed to any sites.

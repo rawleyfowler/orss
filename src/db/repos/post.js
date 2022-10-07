@@ -1,4 +1,5 @@
 const db = require('../db')
+const uuid = require('uuid')
 
 module.exports = {
   findAll: () => {
@@ -13,9 +14,14 @@ module.exports = {
     return db.prepare('SELECT * FROM post WHERE uri IN ( ? )').all(uris.join(', '))
   },
 
+  findById: (id) => {
+    return db.prepare('SELECT * FROM post WHERE id = ?').get(id)
+  },
+
   insert: ({ uri, title, content, description, siteUri }) => {
-    return db.prepare('INSERT INTO post (uri, title, content, description, site_uri) VALUES (?, ?, ?, ?, ?)')
-      .run(uri, title, content, description, siteUri).changes === 1
+    const id = uuid.v4()
+    return db.prepare('INSERT INTO post (id, uri, title, content, description, site_uri) VALUES (?, ?, ?, ?, ?, ?)')
+      .run(id, uri, title, content, description, siteUri).changes === 1
   },
 
   findAllBySiteUri: (uri) => {
